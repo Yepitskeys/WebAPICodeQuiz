@@ -9,14 +9,27 @@
 <body>
     <div class ="quizbox">
         <h1>Key's Coding Quiz</h1>
-
-        <div class = "questions"></div>
-
-        <div class="answers"></div>
+        <div id="startup" class="startup">
+            <p> 
+                Welcome to Key's Coding Quiz Challenge! <br>
+                Test your knowledge of Javascript by taking this timed coding quiz!<br>
+                Will you be able to attain the highest score?! <br>
+                Good luck! <br>
+            </p>
+        </div>
+        
+        <div id="questions" class ="questions">
+            <h2 id="question-title"></h2>
+            <div id="choices" class="choices"></div>
+        </div>
 
         <button id="start">START</button>
-        <h2 id="countdown"></h2>
+        <div id="results" class="results"></div>
+        
     </div>
+
+    <h3 id="countdown" class="countdown"></h3>
+
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

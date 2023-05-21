@@ -38,16 +38,43 @@ button:hover {
     font-size: 2.3em;
   }
 
+  .startup{
+    text-align: center;
+    font-weight: normal;
+    font-size: 1.5em;
+  }
+
+  .countdown {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color:#ffffff;
+    font-weight: bold;
+    padding: 10px;
+  }
+
   .questions{
     font-size: 1.6em;
   }
 
   .answers{
     padding: 15px;
+    text-align: center;
     font-size: 1.2em;
     background-color: #006BB6;
   }
 
+  .answers button {
+    display: block;
+  }
+
   .actualanswers {
 
+  }
+
+
+  .results {
+    font-size: 1.6em;
+    font-weight: bolder;
+    padding: 20px;
   }
