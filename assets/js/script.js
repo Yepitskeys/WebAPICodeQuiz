@@ -4,13 +4,15 @@ var StartUp = document.getElementById('startup');
 var Results = document.getElementById('results');
 var Choices = document.getElementById('choices');
 var Questions = document.getElementById('questions');
+var currentQuestionIndex = 0;
 
 StartButton.addEventListener('click', function() {
     // hides the startup intro paragraph
     document.getElementById('startup').hidden = true;
     document.getElementById('start').hidden = true;
+    document.getElementById('questions').hidden = false;
+    getQuestion();
 
-    QuestionBox();
     var timeLeft = 31;
 	
 	var timerId = setInterval(function() {
@@ -37,6 +39,7 @@ function score(){
 }
 // Function to pull questions
 function getQuestion() {
+    // Need to define CurrentQuestionIndex
     var currentQuestion = questions[currentQuestionIndex];
   
     var Title = document.getElementById('question-title');
@@ -45,7 +48,6 @@ function getQuestion() {
     Choices.innerHTML = '';
   
     for (var i = 0; i < currentQuestion.choices.length; i++) {
-      // create new button for each choice
       var choice = currentQuestion.choices[i];
       var choiceNode = document.createElement('button');
       choiceNode.setAttribute('class', 'choices');
@@ -54,7 +56,7 @@ function getQuestion() {
       choiceNode.textContent = i + 1 + '. ' + choice;
   
       // display on the page
-      Answers.appendChild();
+      Choices.appendChild(choiceNode);
     }
   }
 
