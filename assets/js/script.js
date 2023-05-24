@@ -10,6 +10,7 @@ StartButton.addEventListener('click', function() {
     // hides the startup intro paragraph
     document.getElementById('startup').hidden = true;
     document.getElementById('start').hidden = true;
+    // hides the questions until the start button is clicked
     document.getElementById('questions').hidden = false;
     getQuestion();
 
@@ -27,7 +28,13 @@ StartButton.addEventListener('click', function() {
 	}, 1000);
 });
 
+// function startQuiz () {
+//     StartUp.setAttribute('class', 'hide');
 
+//     Questions.removeAttribute('class', 'hide');
+
+
+// }
 
 function sendMessage(){
     CountdownTimer.textContent = "GAME OVER!!";
@@ -36,10 +43,10 @@ function sendMessage(){
 function score(){
     Results.textContent = "Your Score is " + " !!!";
     // MAKE SURE TO CREATE FUNCTION TO CALCULATE SCORE
+
 }
-// Function to pull questions
+// Function to pull questions to the quizbox div
 function getQuestion() {
-    // Need to define CurrentQuestionIndex
     var currentQuestion = questions[currentQuestionIndex];
   
     var Title = document.getElementById('question-title');
@@ -60,9 +67,40 @@ function getQuestion() {
     }
   }
 
+// Function to check what answer is clicked
+function questionClick(event) {
+    var buttonEl = event.target;
+    console.log(buttonEl.value);
+    var currentQuestion = questions[currentQuestionIndex];
+
+    if (!buttonEl.matches('.choice')) {
+        return;
+    }
+
+    if (buttonEl.value !== questions[currentQuestionIndex].answer) {
+        timeLeft -= 5;
+
+    if (timeLeft < 0) {
+        timeLeft = 0;
+    }
+
+    CountdownTimer.textContent = timeLeft;
+
+    }
+    currentQuestion++;
+
+    if(timeLeft <= 0 || currentQuestionIndex === questions.length) {
+        sendMessage();
+        score();
+    } else {
+        getQuestion();
+    }
+
+}
+
 var questions = [
 {
-    title: 'Where is JavaScript placed with the DOM?',
+    title: 'Where is JavaScript placed within the DOM?',
     choices: [
         'The <body> section', 
         'The <head> section', 
@@ -80,3 +118,6 @@ var questions = [
     answer: 'False',
 }
 ]
+
+// User clicks on choices
+Choices.onclick = questionClick;

@@ -20,6 +20,10 @@ button:hover {
     transform: scale(1.03);
 }
 
+.hide {
+    display: none;
+}
+
 .quizbox {
     display: block;
     margin: 80px auto;
