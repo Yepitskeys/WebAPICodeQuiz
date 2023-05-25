@@ -5,6 +5,7 @@ var Results = document.getElementById('results');
 var Choices = document.getElementById('choices');
 var Questions = document.getElementById('questions');
 var currentQuestionIndex = 0;
+var timeLeft = 31;
 
 StartButton.addEventListener('click', function() {
     // hides the startup intro paragraph
@@ -13,8 +14,6 @@ StartButton.addEventListener('click', function() {
     // hides the questions until the start button is clicked
     document.getElementById('questions').hidden = false;
     getQuestion();
-
-    var timeLeft = 31;
 	
 	var timerId = setInterval(function() {
         timeLeft--;
@@ -71,9 +70,8 @@ function getQuestion() {
 function questionClick(event) {
     var buttonEl = event.target;
     console.log(buttonEl.value);
-    var currentQuestion = questions[currentQuestionIndex];
 
-    if (!buttonEl.matches('.choice')) {
+    if (!buttonEl.matches('.choices')) {
         return;
     }
 
@@ -87,7 +85,8 @@ function questionClick(event) {
     CountdownTimer.textContent = timeLeft;
 
     }
-    currentQuestion++;
+    currentQuestionIndex++;
+
 
     if(timeLeft <= 0 || currentQuestionIndex === questions.length) {
         sendMessage();
@@ -116,8 +115,62 @@ var questions = [
         'False', 
     ],
     answer: 'False',
-}
+},
+{
+    title: 'JavaScript is a ____ - side programming language',
+    choices: [
+        'Client', 
+        'Server',
+        'Both',
+        'None',
+    ],
+    answer: 'Both',
+},
+{
+    title: 'Which JavaScript label catches all the values, except for the ones specified?',
+    choices: [
+        'Catch', 
+        'Label',
+        'Try',
+        'Default',
+    ],
+    answer: 'Default',
+},
+{
+    title: 'Which of the following type of variable is visible only within a function where it is defined?',
+    choices: [
+        'Global Variable',
+        'Local',
+        'Both',
+        'None',
+    ],
+    answer: 'Default',
+},
+{
+    title: 'Which of the following purpose, JavaScript is designed for ?',
+    choices: [
+        'To Execute Query Related to DB on Server',
+        'To Style HTML Pages',
+        'To Perform Server Side Scripting Opertion',
+        'To add interactivity to HTML Pages',
+    ],
+    answer: 'To add interactivity to HTML Pages',
+},
+{
+    title: 'JavaScript code can be called by using',
+    choices: [
+        'RMI',
+        'Preprocessor',
+        'Function / Method',
+        'None of the above',
+    ],
+    answer: 'Function / Method',
+},
 ]
 
 // User clicks on choices
 Choices.onclick = questionClick;
+
+
+// ByteLengthQueuingStrategy.addEventListener("click", startGame) 
+// Different way to write event Listeners
