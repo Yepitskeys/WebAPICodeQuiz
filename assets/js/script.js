@@ -15,25 +15,11 @@ StartButton.addEventListener('click', function() {
     document.getElementById('questions').hidden = false;
     getQuestion();
 	
-	var timerId = setInterval(function() {
-        timeLeft--;
-        CountdownTimer.textContent = "Time Left: " + timeLeft;
-    
-    if (timeLeft === 0) {
-        clearInterval(timerId);
-        sendMessage()
-        score()
+    if (timeLeft <= 0) {
+        quizOver();
     }
 	}, 1000);
-});
 
-// function startQuiz () {
-//     StartUp.setAttribute('class', 'hide');
-
-//     Questions.removeAttribute('class', 'hide');
-
-
-// }
 
 function sendMessage(){
     CountdownTimer.textContent = "GAME OVER!!";
@@ -41,9 +27,46 @@ function sendMessage(){
 
 function score(){
     Results.textContent = "Your Score is " + " !!!";
-    // MAKE SURE TO CREATE FUNCTION TO CALCULATE SCORE
-
 }
+
+// function that will generate quiz over
+function quizOver(){
+	var timerId = setInterval(function() {
+        timeLeft--;
+        CountdownTimer.textContent = "Time Left: " + timeLeft;
+    });
+
+    clearInterval(timerId);
+    sendMessage();
+    saveHighscore();
+
+    var finalScore = document.getElementById('final-score');
+
+    questions.setAttribute('class', 'hide')
+    console.log(quizOver)
+}
+// function that will save high score to local storage
+function saveHighScore(){
+    var initials = initials.value.trim();
+
+    if (initials !== '') {
+    
+    var highscores =
+        JSON.parse(window.localStorage.getitem('highscores')) || [];
+    
+    var newScore = {
+        score: timeLeft,
+        initials: initials,
+    }
+    
+    highscores.push(newScore);
+    window.localStorage.setItem('highscores', JSON.stringify(highscores));
+
+    window.location.href = 'highscores.html';
+
+    }
+}
+
 // Function to pull questions to the quizbox div
 function getQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
@@ -77,16 +100,19 @@ function questionClick(event) {
 
     if (buttonEl.value !== questions[currentQuestionIndex].answer) {
         timeLeft -= 5;
+        feedback.textContent = 'Wrong';
+    }
 
     if (timeLeft < 0) {
         timeLeft = 0;
     }
 
-    CountdownTimer.textContent = timeLeft;
-
+    else {
+        feedback.textContent = "Correct";
     }
-    currentQuestionIndex++;
 
+    CountdownTimer.textContent = timeLeft;
+    currentQuestionIndex++;
 
     if(timeLeft <= 0 || currentQuestionIndex === questions.length) {
         sendMessage();
