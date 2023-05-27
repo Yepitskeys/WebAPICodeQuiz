@@ -15,11 +15,17 @@ StartButton.addEventListener('click', function() {
     document.getElementById('questions').hidden = false;
     getQuestion();
 	
+	var timerId = setInterval(function() {
+        timeLeft--;
+        CountdownTimer.textContent = "Time Left: " + timeLeft;
+    
     if (timeLeft <= 0) {
+        clearInterval(timerId);
+        sendMessage();
         quizOver();
     }
 	}, 1000);
-
+});
 
 function sendMessage(){
     CountdownTimer.textContent = "GAME OVER!!";
@@ -29,23 +35,16 @@ function score(){
     Results.textContent = "Your Score is " + " !!!";
 }
 
-// function that will generate quiz over
 function quizOver(){
-	var timerId = setInterval(function() {
-        timeLeft--;
-        CountdownTimer.textContent = "Time Left: " + timeLeft;
-    });
-
     clearInterval(timerId);
     sendMessage();
-    saveHighscore();
+    saveHighscore()
 
     var finalScore = document.getElementById('final-score');
 
     questions.setAttribute('class', 'hide')
-    console.log(quizOver)
 }
-// function that will save high score to local storage
+
 function saveHighScore(){
     var initials = initials.value.trim();
 
